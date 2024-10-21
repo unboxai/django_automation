@@ -1,3 +1,55 @@
+import sys
+import subprocess
+import pkg_resources
+import os
+
+# Required packages
+REQUIRED_PACKAGES = [
+    'gradio',
+    'openai',
+    'django',
+    'requests'
+]
+
+def install_packages(packages):
+    """
+    Install missing packages using pip.
+    """
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", *packages])
+    except subprocess.CalledProcessError as e:
+        print(f"Error installing packages: {e}")
+        sys.exit(1)
+
+def check_and_install_dependencies(required_packages):
+    """
+    Check for missing packages and install them.
+    """
+    installed_packages = {pkg.key for pkg in pkg_resources.working_set}
+    missing_packages = [pkg for pkg in required_packages if pkg.lower() not in installed_packages]
+
+    if missing_packages:
+        print(f"Installing missing packages: {', '.join(missing_packages)}")
+        install_packages(missing_packages)
+        print("Dependencies installed successfully. Restarting the script...")
+        python = sys.executable
+        os.execl(python, python, *sys.argv)
+    else:
+        print("All dependencies are already installed.")
+
+# Check and install dependencies
+check_and_install_dependencies(REQUIRED_PACKAGES)
+
+# Now import the packages
+import gradio as gr
+import openai
+import django
+import requests
+
+# Rest of your Gradio interface and functions
+# [Insert your existing creator.py code here]
+
+
 import gradio as gr
 import subprocess
 import os
