@@ -99,7 +99,7 @@ echo "The app has been added to INSTALLED_APPS."
 echo "templates directory and urls.py have been created in the app directory."
 
 # Navigate to the project directory and activate the virtual environment
-cd "$project_path/$project_name"
+cd "$project_path"
 source "$project_path/$venv_name/bin/activate"
 
 echo "You are now in the project directory: $(pwd)"
