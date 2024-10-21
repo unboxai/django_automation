@@ -34,7 +34,6 @@ pip install --upgrade pip
 
 # Install necessary Python packages
 echo "Installing necessary packages..."
-
 pip install gradio openai django requests
 
 # Create requirements.txt at the project level
@@ -98,3 +97,14 @@ echo "Static, staticfiles, and media directories have been created."
 echo "settings.py has been updated with ALLOWED_HOSTS, STATIC and MEDIA configurations."
 echo "The app has been added to INSTALLED_APPS."
 echo "templates directory and urls.py have been created in the app directory."
+
+# Navigate to the project directory and activate the virtual environment
+cd "$project_path/$project_name"
+source "$project_path/$venv_name/bin/activate"
+
+echo "You are now in the project directory: $(pwd)"
+echo "The virtual environment '$venv_name' is activated."
+echo "You can start developing your Django project!"
+
+# Keep the terminal open in the current directory with the virtual environment activated
+exec $SHELL
