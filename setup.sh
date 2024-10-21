@@ -31,7 +31,11 @@ cd "$project_name" || { echo "Error: Could not change to project directory $proj
 
 # Upgrade pip and install Django
 pip install --upgrade pip
-pip install django
+
+# Install necessary Python packages
+echo "Installing necessary packages..."
+
+pip install gradio openai django requests
 
 # Create requirements.txt at the project level
 pip freeze > requirements.txt
