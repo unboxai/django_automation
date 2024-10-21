@@ -71,6 +71,30 @@ with gr.Blocks() as demo:
     gr.Markdown("# 🛠️ Django Project Automator")
     gr.Markdown("Automate your Django project file generation using this tool.")
     
+    with gr.Tab("Configure Project"):
+        with gr.Column():
+            project_path = gr.Textbox(label="Project Path", placeholder="/path/to/your/project", lines=1)
+            app_name = gr.Textbox(label="Django App Name", placeholder="myapp", lines=1)
+            submit_config = gr.Button("Set Configuration")
+            config_status = gr.Markdown()
+            
+            def set_configuration(p_path, a_name):
+                if not os.path.exists(p_path):
+                    return f"Error: The project path `{p_path}` does not exist."
+                if not os.path.isdir(p_path):
+                    return f"Error: `{p_path}` is not a directory."
+                # Optionally, verify that the app directory exists
+                app_path = os.path.join(p_path, a_name)
+                if not os.path.exists(app_path):
+                    return f"Warning: The app directory `{app_path}` does not exist yet."
+                return f"Configuration set successfully! Project Path: `{p_path}`, App Name: `{a_name}`."
+            
+            submit_config.click(
+                set_configuration,
+                inputs=[project_path, app_name],
+                outputs=config_status
+            )
+    
     with gr.Tab("Generate `views.py`"):
         with gr.Column():
             instructions_views = gr.Textbox(label="Instructions for `views.py`", placeholder="Describe the views you want...", lines=5)
@@ -85,7 +109,7 @@ with gr.Blocks() as demo:
             
             generate_views_btn.click(
                 generate_views,
-                inputs=[instructions_views, gr.State(label="Project Path"), gr.State(label="App Name"), model_views],
+                inputs=[instructions_views, project_path, app_name, model_views],
                 outputs=views_output
             )
     
@@ -103,7 +127,7 @@ with gr.Blocks() as demo:
             
             generate_urls_btn.click(
                 generate_urls,
-                inputs=[instructions_urls, gr.State(label="Project Path"), gr.State(label="App Name"), model_urls],
+                inputs=[instructions_urls, project_path, app_name, model_urls],
                 outputs=urls_output
             )
     
@@ -121,28 +145,18 @@ with gr.Blocks() as demo:
             
             generate_models_btn.click(
                 generate_models,
-                inputs=[instructions_models, gr.State(label="Project Path"), gr.State(label="App Name"), model_models],
+                inputs=[instructions_models, project_path, app_name, model_models],
                 outputs=models_output
             )
     
     gr.Markdown("""
     ---
-    **⚠️ Important:** Ensure that your OpenAI API key is set as an environment variable `OPENAI_API_KEY`. Also, make sure that you have the necessary permissions to write to the project directory.
+    **⚠️ Important:**
+    - Ensure that your OpenAI API key is set as an environment variable `OPENAI_API_KEY`.
+    - Make sure that the `project_path` and `app_name` are correctly configured in the **Configure Project** tab.
+    - Generated files will overwrite existing files with the same name in the specified Django app.
     """)
 
 # Launch the Gradio app
 if __name__ == "__main__":
-    # Prompt the user for Project Path and App Name if not provided
-    import sys
-    if len(sys.argv) > 1:
-        project_path = sys.argv[1]
-    else:
-        project_path = input("Enter the full path to your Django project: ")
-    
-    if len(sys.argv) > 2:
-        app_name = sys.argv[2]
-    else:
-        app_name = input("Enter the Django app name: ")
-    
-    # Set initial state for Gradio
     demo.launch()
