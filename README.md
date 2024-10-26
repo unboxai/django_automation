@@ -1,44 +1,50 @@
-# django_automation
-This tool should automate creation of any web application. The goal is to use Django for backend. Postgre for db, Rect and Next.js for front end and do it all in minutes. It should build a good starting point to further refine and act on. 
+This repo is aimed at automating the work of a django developer. 
+
+Steps to take advantage of it. 
+
+Commands to run step by step.
+
+Step 1:
+Open your terminal / Cmd/ Console on local machine or server.
+
+Step 2:
+mkdir "Your_directory_Name"
+cd "Your_directory_Name"
+
+Step 3:
+git init (Initialise a git directory)
+
+Step 4:
+git pull "repo URL"
+
+Now you have the files locally.
+
+Step 5:
+Now run ./setup.sh 
+This will ask you about all the important details of your django project. 
+Once given, press enter and the entire project will be setup with instalations in minutes. 
+
+It will install venv and dependencies and make a requirements.txt also.
+Note: This installs some dependencies of open AI also, but if you do not need them, remove them.
+
+See all dependencies using pip show list
+
+Now once this is done, you can now, just make minor adjustments as needed but alsmost everything is setup from settings.py to views.py
+
+Step 6:
+
+Copy reload.sh in the root directory
+
+Using ./reload.sh
+
+You can any time view test your apache2 configration for any file or logs of your app / server with just 1 command.
+
+Overall this should automate and save a lot of time for you. 
 
 
-# 🛠️ Django Project Automator
 
-Automate your Django project setup and file generation using this Gradio-based web application. This tool streamlines the process of initializing Django projects, setting up virtual environments, and generating essential files (`views.py`, `urls.py`, `models.py`) using OpenAI's Language Models.
 
-## Features
 
-- **Project Initialization:** Create a Django project with a virtual environment effortlessly.
-- **File Generation:** Generate `views.py`, `urls.py`, and `models.py` based on your custom instructions.
-- **Model Selection:** Choose from a variety of OpenAI models to control the complexity and cost of the generated content.
-- **User-Friendly Interface:** Interactive web interface built with Gradio.
-- **OpenAI Integration:** Leverage AI to generate Django files adhering to best practices.
 
-## Table of Contents
 
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Usage](#usage)
-  - [Step 1: Initialize Project](#step-1-initialize-project)
-  - [Step 2: Generate `views.py`](#step-2-generate-viewspy)
-  - [Step 3: Generate `urls.py` and `models.py`](#step-3-generate-urlspy-and-modelspy)
-- [Model Selection](#model-selection)
-- [Repository Structure](#repository-structure)
-- [Contributing](#contributing)
-- [License](#license)
 
-## Prerequisites
-
-Before you begin, ensure you have the following installed:
-
-- **Python 3.7+**
-- **Git**
-- **OpenAI API Key**
-
-## Installation
-
-1. **Clone the Repository:**
-
-   ```bash
-   git clone https://github.com/your-username/django-automator.git
-   cd django-automator
